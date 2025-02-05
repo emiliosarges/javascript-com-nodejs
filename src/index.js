@@ -22,7 +22,7 @@ function verificaPalavrasDuplicadas(texto) {
         if (palavra.length >= 3) {
             const palavraLimpa = limpaPalavras(palavra);
             resultado[palavraLimpa] = (resultado[palavra] || 0) + 1;
-        } 
+        }
     })
     return resultado; 
 }
