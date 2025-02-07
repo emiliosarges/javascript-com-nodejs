@@ -1,5 +1,6 @@
 {
   "name": "javascript-com-nodejs",
+<<<<<<< HEAD
   "description": "Projeto de aprendizado de JavaScript com Node.js",
   "version": "1.0.0",
   "main": "index.js",
@@ -19,4 +20,19 @@
   },
   "homepage": "https://github.com/emiliosarges/javascript-com-nodejs#readme",
   "description": ""
+=======
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "javascript-com-nodejs": "file:"
+  }
+>>>>>>> 23ce80ef0906e081d262bf78b6d01b91152c8602
 }
