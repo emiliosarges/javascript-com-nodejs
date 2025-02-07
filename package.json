@@ -1,0 +1,22 @@
+{
+  "name": "javascript-com-nodejs",
+  "description": "Projeto de aprendizado de JavaScript com Node.js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emiliosarges/javascript-com-nodejs.git"
+  },
+  "keywords": [],
+  "author": "Emílio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emiliosarges/javascript-com-nodejs/issues"
+  },
+  "homepage": "https://github.com/emiliosarges/javascript-com-nodejs#readme",
+  "description": ""
+}
