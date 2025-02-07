@@ -1,63 +1,77 @@
-<<<<<<< HEAD
-import { readFile } from 'fs';
-import trataErros from './erros/funcoesErro.js';
-import { contaPalavras } from './index.js';
-
-
-const caminhoArquivo = process.argv;
-const link = caminhoArquivo[2];
-const endereco = caminhoArquivo[3]
-=======
 import fs from 'fs';
+import path from 'path';
 import trataErros from './erros/funcoesErro.js';
 import { contaPalavras } from './index.js';
 import { montaSaidaArquivo } from './helpers.js';
+import { Command } from 'commander';
+import chalk from 'chalk'; //cores no terminal
 
-const caminhoArquivo = process.argv;
-const link = caminhoArquivo[2];
-const endereco = caminhoArquivo[3];
->>>>>>> 23ce80ef0906e081d262bf78b6d01b91152c8602
 
-fs.readFile(link, 'utf-8', (erro, texto) => {
-    try {
-        if (erro) throw erro
-        const resultado = contaPalavras(texto);
-        criaESalvaArquivo(resultado, endereco);
-    }   catch(erro) {
-<<<<<<< HEAD
-       console.log(trataErros(erro));
-    }
-})
+const program = new Command();
 
-async function criaESalvaArquivo(listaPalavras, endereco) {
-    const arquivoNovo = `${endereco}/resultado.txt`;
-    const textoPalavras = JSON.stringify(listaPalavras);
-    try {
-        await fs.promises.writeFile(arquivoNovo, textoPalavras);
-        console.log('Arquivo criado');
-    } catch(erro) {
-        throw erro;
-    }
+program
+    .version('0.0.1')
+    .option('-t, --texto <string>', 'caminho do texto a ser processado')
+    .option('-d, --destino <string>', 'caminho da pasta onde salvar o arquivo de resultados')
+    .action((options) => {
+        const { texto, destino } = options;
+
+        if (!texto || !destino) {
+            console.error('erro: favor inserir caminho de origem e destino');
+            program.help();
+            return;
+        }
+
+        const caminhoTexto = path.resolve(texto);
+        const caminhoDestino = path.resolve(destino);
+
+        try {
+          processaArquivo(caminhoTexto, caminhoDestino) ;
+          console.log(chalk.yellow('Texto processado com sucesso')); //cores
+           
+        } catch (erro) {
+            console.log('ocorreu um erro no processamento', erro); 
+        }
+    })
+
+program.parse();
+
+function processaArquivo(texto, destino) {
+    fs.readFile(texto, 'utf-8', (erro, texto) => {
+        try {
+            if (erro) throw erro
+            const resultado = contaPalavras(texto);
+            criaESalvaArquivo(resultado, destino);
+        }   catch(erro) {
+            trataErros(erro);
+        }
+    })
 }
-=======
-        trataErros(erro);
-    }
-})
 
 //async await - mais moderna, mais fácil de escrever e de entender
-
 async function criaESalvaArquivo(listaPalavras, endereco) {
     const arquivoNovo = `${endereco}/resultado.txt`;
     const textoPalavras = montaSaidaArquivo(listaPalavras);
     try{
         await fs.promises.writeFile(arquivoNovo, textoPalavras);
         console.log('arquivo criado');
-
     } catch(erro) {
         throw erro;
     }
 }
-
+//then, mais antiga, mais encontrada nos códigos, menos fácil de escrever e de entender
+// function criaESalvaArquivo(listaPalavras, endereco) {
+//     const arquivoNovo = `${endereco}/resultado.txt`;
+//     const textoPalavras = JSON.stringify(listaPalavras);
+//     fs.promises.writeFile(arquivoNovo, textoPalavras)
+//       .then((json) => {
+//         console.log('arquivo criado');
+//       })
+//       .catch((erro) => {
+//         throw erro
+//       })
+//       .finally(() => console.log('operação finalizada'));
+// }
 //then, mais antiga, mais encontrada nos códigos, menos fácil de escrever e de entender
 
 // function criaESalvaArquivo(listaPalavras, endereco) {
@@ -72,5 +86,3 @@ async function criaESalvaArquivo(listaPalavras, endereco) {
 //       })
 //       .finally(() => console.log('operação finalizada'));
 // }
-
->>>>>>> 23ce80ef0906e081d262bf78b6d01b91152c8602
